@@ -1,4 +1,6 @@
 #!/bin/bash
+#install LSD dependency
+
 # Eigen 3.3.7
 wget https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.tar.gz
 tar -xzvf eigen-3.3.7.tar.gz
@@ -10,6 +12,7 @@ sudo make -j 16 install
 cd
 rm eigen-3.3.7.tar.gz
 rm -rf eigen-3.3.7
+
 # ceres-solver-1.14.0 
 wget http://ceres-solver.org/ceres-solver-1.14.0.tar.gz
 tar -xzvf ceres-solver-1.14.0.tar.gz
@@ -21,6 +24,7 @@ sudo make -j 16 install
 cd
 rm ceres-solver-1.14.0.tar.gz
 rm -rf ceres-solver-1.14.0
+
 # protobuf
 git clone https://github.com/protocolbuffers/protobuf.git
 cd protobuf
@@ -32,6 +36,7 @@ sudo make -j 16 install
 sudo ldconfig
 cd
 rm -rf protobuf
+
 #NLopt 2.4.2
 sudo apt-get -y install libnlopt-dev
 
@@ -90,4 +95,24 @@ sudo ldconfig
 cd
 rm -rf pcl-1.9.1.tar.gz
 rm -rf pcl-pcl-1.9.1
+
+#GTSAM 4.0
+git clone https://github.com/borglab/gtsam.git
+cd gtsam
+git checkout 4.0
+mkdir build && cd build
+cmake ..
+make -j 16
+sudo make -j 16 install
+cd
+rm -rf gtsam
+
+# Nvidia-docker
+sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io nvidia-docker2
 echo "Now reboot system to apply changes"
