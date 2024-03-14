@@ -10,9 +10,9 @@ sudo apt-get -y upgrade
 sudo apt install -y python3-pip #pip update
 
 # Install programs
-sudo apt-get -y install ubuntu-unity-desktop # Ubuntu renderer
-sudo snap install clion --classic # CLion IDE
-sudo snap install pycharm-community --classic # Pycharm Community IDE
+# sudo apt-get -y install ubuntu-unity-desktop # Ubuntu renderer
+# sudo snap install clion --classic # CLion IDE
+# sudo snap install pycharm-community --classic # Pycharm Community IDE
 
 wget -nc https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb # Google Chrome
 sudo apt -y install ./google-chrome-stable_current_amd64.deb
