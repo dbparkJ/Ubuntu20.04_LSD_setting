@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # Nvidia-docker
 sudo systemctl --now enable docker
