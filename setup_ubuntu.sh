@@ -50,6 +50,21 @@ sudo update-initramfs -u
 sudo apt install -y nvidia-driver-525 # if you change driver-version command 'ubuntu-drivers devices' and find hope version
 #command mok pw limit 8 character
 
+# Nvidia-docker
+sudo systemctl --now enable docker
+
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
+      && curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+      && curl -s -L https://nvidia.github.io/libnvidia-container/$distribution/libnvidia-container.list | \
+            sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+            sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+
+sudo apt-get -y update
+
+sudo apt-get install -y nvidia-container-toolkit
+sudo nvidia-ctk runtime configure --runtime=docker
+sudo systemctl restart docker
+
 # ROS
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
